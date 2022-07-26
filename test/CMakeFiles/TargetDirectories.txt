@@ -1,0 +1,3 @@
+/run/media/benajah/VMDRIVER/RGE/test/CMakeFiles/Test.dir
+/run/media/benajah/VMDRIVER/RGE/test/CMakeFiles/edit_cache.dir
+/run/media/benajah/VMDRIVER/RGE/test/CMakeFiles/rebuild_cache.dir
