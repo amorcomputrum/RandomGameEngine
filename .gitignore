@@ -15,6 +15,7 @@
 *.so
 *.dylib
 *.dll
+*.so.*
 
 # Fortran module files
 *.mod
@@ -30,3 +31,13 @@
 *.exe
 *.out
 *.app
+
+CMakeFiles/
+
+Makefile
+
+test/
+
+CMakeCache.txt
+cmake_install.cmake
+intall_manifest.txt
