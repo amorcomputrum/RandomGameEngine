@@ -24,6 +24,7 @@ set(SOURCE_FILES
 	World/Chunk.cpp
 	World/GridWorld.cpp
 	World/AutoTiler.cpp
+	World/TmxWorld.cpp
 	tinyxml2/tinyxml2.cpp
 	tmxparser/base64.cpp
 	tmxparser/tmxparser.cpp

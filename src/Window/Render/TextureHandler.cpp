@@ -1,5 +1,8 @@
+#include <iostream>
 
 #include "RGE/glLibs/glad/glad.h"
+
+#include "RGE/System/Exception.h"
 
 #include "RGE/Window/Render/TextureHandler.h"
 
@@ -7,6 +10,8 @@ txHandler::Texture::Texture(){}
 
 txHandler::Texture::Texture(std::string filename){
 	unsigned char* data = stbi_load(filename.c_str(), &w, &h, &type, 0);
+
+	if(data == NULL) throw RGE::exception("Image[" + filename + "]: Failed to load");
 
 	//Load Texture
 	glGenTextures(1, &texture);
