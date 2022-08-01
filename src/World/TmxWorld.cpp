@@ -16,6 +16,32 @@ RGE::TmxWorld::TmxWorld(const char* file,const char* folder){
 	loadSprites();
 }
 
+RGE::TmxWorld::TmxWorld(const char* file, const char* folder,void(*loadTile)(int,int,int)){
+	map = new tmxparser::TmxMap();
+	tmxparser::parseFromFile(file, RGE::TmxWorld::map, folder);
+
+	mapWidth = map->width;
+	mapHeight = map->height;
+	tileWidth = map->tileWidth;
+	tileHeight = map->tileHeight;
+
+	loadSprites();
+
+	for(int layer = 0; layer < map->layerCollection.size(); layer++){
+		for(int layerX = 0; layerX < map->layerCollection[layer].width; layerX++){
+			for(int layerY = 0; layerY < map->layerCollection[layer].height; layerY++){
+
+				int gid = map->layerCollection[layer].tiles[layerX+(layerY*mapWidth)].gid;
+				int x = layerX*tileWidth;
+				int y = layerY*tileHeight;
+
+				loadTile(x, y, gid);
+			}
+		}
+	}
+
+}
+
 void RGE::TmxWorld::render(){
 	int camX{RGE::Window::Camera::X}, camY{RGE::Window::Camera::Y};
 

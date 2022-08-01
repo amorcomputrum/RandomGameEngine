@@ -12,6 +12,7 @@ namespace RGE{
 	public:
 		TmxWorld(){};
 		TmxWorld(const char* file, const char* folder);
+		TmxWorld(const char* file, const char* folder,void(*loadTile)(int,int,int));
 
 		void render();
 	protected:
