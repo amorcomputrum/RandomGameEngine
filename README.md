@@ -11,7 +11,7 @@ A random game engine, with a random code structure, made out of bordom... yeah, 
 - GLSL shader loader
 - tinyxml2
 - tmxparser
-- | Tiled(tmx) support | WIP
+- Tiled(tmx) support
 - Built-in AA physics engine
 - Perlin Noise
 - Pre-defined GridWorld(AutoTiler Implemented)
@@ -57,6 +57,14 @@ int main(){
     RGE::Window::run();
 }
 ```
+## Notes for Using RGE::TmxWorld
+
+This implementation of the tmx format does not support the use of ObjectLayers.\
+Instead RGE::TmxWorld has a virtual function that allows you to call functions when a block is loaded from the map.
+#### ANIMATIONS HAVE NOT BEEN ADDED YET AND OBJECTLAYERS MAY STILL COME
+
+
+
 ## Acknowledgements
 
  - [glfw3](https://www.glfw.org/)
