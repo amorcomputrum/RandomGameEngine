@@ -59,10 +59,9 @@ int main(){
 ```
 ## Notes for Using RGE::TmxWorld
 
-This implementation of the tmx format does not support the use of ObjectLayers.\
-Instead RGE::TmxWorld has a virtual function that allows you to call functions when a block is loaded from the map.
-#### ANIMATIONS HAVE NOT BEEN ADDED YET AND OBJECTLAYERS MAY STILL COME
-
+- This implementation of the tmx format does not support the use of ObjectLayers.
+- Instead RGE::TmxWorld use  ``` RGE::TmxWorld(const char* file, const char* folder,void(*loadTile)(int,int,int)); ```
+- ANIMATIONS HAVE NOT BEEN ADDED YET AND OBJECTLAYERS MAY STILL COME
 
 
 ## Acknowledgements
