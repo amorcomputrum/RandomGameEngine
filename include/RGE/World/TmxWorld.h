@@ -15,8 +15,9 @@ namespace RGE{
 
 		void render();
 	protected:
-		tmxparser::TmxMap* map;
+		
 	private:
+		tmxparser::TmxMap* map;
 		//map sprites by gid
 		std::map<int, RGE::Sprite*> sprites;
 		int mapWidth, mapHeight;

@@ -2,7 +2,7 @@
 #include "RGE/Window/Render/Render.h"
 #include "RGE/Window/Camera.h"
 
-#include<iostream>
+#include <iostream>
 
 RGE::TmxWorld::TmxWorld(const char* file,const char* folder){
 	map = new tmxparser::TmxMap();
@@ -41,7 +41,6 @@ void RGE::TmxWorld::render(){
 
 void RGE::TmxWorld::loadSprites(){
 	for(int file = 0; file < map->tilesetCollection.size(); file++){
-		std::cout << map->tilesetCollection[file].image.source << std::endl;
 		int first_gid = map->tilesetCollection[file].firstgid;
 		//get defined offset
 		int offsetX = map->tilesetCollection[file].offset.x;
@@ -52,7 +51,6 @@ void RGE::TmxWorld::loadSprites(){
 		//get tile spacing and margins
 		int spacing = map->tilesetCollection[file].tileSpacingInImage;
 		int margin  = map->tilesetCollection[file].tileMarginInImage;
-
 
 		for(int row = 0; row < map->tilesetCollection[file].rowCount; row++){
 			for(int col = 0; col < map->tilesetCollection[file].colCount; col++){
