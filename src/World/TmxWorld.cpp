@@ -65,6 +65,13 @@ void RGE::TmxWorld::render(){
 	}
 }
 
+int RGE::TmxWorld::getTile(int x, int y, int layer){
+	return map->layerCollection[layer].tiles[x+(y*mapWidth)].gid;
+}
+void RGE::TmxWorld::setTile(int x, int y, int layer, int gid){
+	map->layerCollection[layer].tiles[x+(y*mapWidth)].gid = gid;
+}
+
 void RGE::TmxWorld::loadSprites(){
 	for(int file = 0; file < map->tilesetCollection.size(); file++){
 		int first_gid = map->tilesetCollection[file].firstgid;

@@ -15,6 +15,9 @@ namespace RGE{
 		TmxWorld(const char* file, const char* folder,void(*loadTile)(int,int,int));
 
 		void render();
+
+		int getTile(int x, int y, int layer);
+		void setTile(int x, int y, int layer, int gid);
 	protected:
 		
 	private:

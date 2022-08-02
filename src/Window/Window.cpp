@@ -160,6 +160,10 @@ void RGE::Window::setBackgroundColor(int r, int g, int b){
 	}
 }
 
+void RGE::Window::setSizeLimits(int minW, int minH, int maxW, int maxH){
+	glfwSetWindowSizeLimits(RGE::Window::hidden::window, minW, minH, maxW, maxH);
+}
+
 void RGE::Window::createWindow(int width, int height, std::string title){
 	RGE::Window::WIDTH  = width ;
 	RGE::Window::HEIGHT = height;
