@@ -31,6 +31,9 @@ txHandler::Texture::Texture(std::string filename){
 	this->FILE = filename;
 }
 
+txHandler::Texture::~Texture(){
+}
+
 void txHandler::generateTexture(std::string filename){
 	//check if texture exists
 	if(textures.size() != 0){

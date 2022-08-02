@@ -15,6 +15,7 @@ namespace txHandler{
 		unsigned int texture;
 		Texture();
 		Texture(std::string filename);
+		~Texture();
 	};
 	static std::vector<Texture> textures;
 	void generateTexture(std::string filename);

@@ -16,7 +16,7 @@ RGE::TmxWorld::TmxWorld(const char* file,const char* folder){
 	loadSprites();
 }
 
-RGE::TmxWorld::TmxWorld(const char* file, const char* folder,void(*loadTile)(int,int,int)){
+RGE::TmxWorld::TmxWorld(const char* file, const char* folder,void(*loadTile)(int,int,int,int)){
 	map = new tmxparser::TmxMap();
 	tmxparser::parseFromFile(file, RGE::TmxWorld::map, folder);
 
@@ -35,7 +35,7 @@ RGE::TmxWorld::TmxWorld(const char* file, const char* folder,void(*loadTile)(int
 				int x = layerX*tileWidth;
 				int y = layerY*tileHeight;
 
-				loadTile(x, y, gid);
+				loadTile(x, y, layer, gid);
 			}
 		}
 	}
@@ -45,18 +45,23 @@ RGE::TmxWorld::TmxWorld(const char* file, const char* folder,void(*loadTile)(int
 void RGE::TmxWorld::render(){
 	int camX{RGE::Window::Camera::X}, camY{RGE::Window::Camera::Y};
 
-	int startX = camX - (camX%tileWidth);
-	int startY = camY - (camY%tileHeight);
+	int startX = (camX - (camX%tileWidth))/tileWidth;
+	int startY = (camY - (camY%tileHeight))/tileHeight;
+
+	if(startX < 0) startX = 0;
+	if(startY < 0) startY = 0;
+
 	//loop through layers
 	for(int layer = 0; layer < map->layerCollection.size(); layer++){
 		//loop through from start x until x is the layer width or off camera
-		for(int layerX = startX; layerX < map->layerCollection[layer].width && layerX*tileWidth < RGE::Window::Camera::W; layerX++){
+		for(int layerX = startX; layerX < map->layerCollection[layer].width && layerX*tileWidth < RGE::Window::Camera::X + RGE::Window::Camera::W; layerX++){
 			//loop through from start y until y is the layer height or off camera
-			for(int layerY = startY; layerY < map->layerCollection[layer].height && layerY*tileHeight < RGE::Window::Camera::H; layerY++){
+			for(int layerY = startY; layerY < map->layerCollection[layer].height && layerY*tileHeight < RGE::Window::Camera::Y + RGE::Window::Camera::H; layerY++){
 
 				int gid = map->layerCollection[layer].tiles[layerX+(layerY*mapWidth)].gid;
 
 				if(sprites[gid] != 0) {
+					sprites[gid]->resize(tileWidth, tileHeight);
 					RGE::Window::Render::drawSprite(sprites[gid], layerX*tileWidth, layerY*tileHeight);
 				}
 
@@ -68,8 +73,25 @@ void RGE::TmxWorld::render(){
 int RGE::TmxWorld::getTile(int x, int y, int layer){
 	return map->layerCollection[layer].tiles[x+(y*mapWidth)].gid;
 }
+
+int RGE::TmxWorld::getTile(int x, int y, std::string layer){
+	return map->layerCollection[getLayer(layer)].tiles[x+(y*mapWidth)].gid;
+}
+
 void RGE::TmxWorld::setTile(int x, int y, int layer, int gid){
 	map->layerCollection[layer].tiles[x+(y*mapWidth)].gid = gid;
+}
+
+void RGE::TmxWorld::setTile(int x, int y, std::string layer, int gid){
+	map->layerCollection[getLayer(layer)].tiles[x+(y*mapWidth)].gid = gid;
+}
+
+void RGE::TmxWorld::resizeTiles(int w, int h){
+	if(w <= 0) w = 1;
+	if(h <= 0) h = 1;
+
+	tileWidth = w;
+	tileHeight = h;
 }
 
 void RGE::TmxWorld::loadSprites(){
@@ -100,4 +122,11 @@ void RGE::TmxWorld::loadSprites(){
 			}
 		}
 	}
+}
+
+int RGE::TmxWorld::getLayer(std::string layer){
+	for(int mapLayer = 0; mapLayer < map->layerCollection.size(); mapLayer++){
+		if(map->layerCollection[mapLayer].name == layer) return mapLayer;
+	}
+	return {};
 }
